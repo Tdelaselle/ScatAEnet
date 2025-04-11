@@ -2,7 +2,9 @@
 </div>
 Application of Scattering network for acoustic emission data analysis (adapted version of Scatseisnet).
 
-This repository only contains Python scripts and notebooks to pre-process continuous acoustic recordings and post-process scattering coefficients from the network computation. See https://zenodo.org/records/15110686 for Scatseisnet library.
+</div>
+
+_Note : This repository only contains Python scripts and notebooks to pre-process continuous acoustic recordings and post-process scattering coefficients from the network computation. See https://zenodo.org/records/15110686 for Scatseisnet library._
 
 
 ## About
