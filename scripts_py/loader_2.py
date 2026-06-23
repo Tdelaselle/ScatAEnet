@@ -7,7 +7,7 @@ import numpy as np
 import obspy
 import tqdm
 import xarray as xr
-import Analysis_param_2
+from analysis_bank import Analysis_param_2
 
 # -------------------------------------------- filepaths and parameters
 data_file = Analysis_param_2.data_file
@@ -17,6 +17,7 @@ param_path = Analysis_param_2.data_param
 pooling = Analysis_param_2.pooling
 scattering_coef_path = Analysis_param_2.Scattering_coef_path
 fig_path = Analysis_param_2.fig_path
+downsampling = Analysis_param_2.downsampling
 # -----------------------------------------------------------
 
 # Load database and model. This are assigned to the global namespace to be used
@@ -27,6 +28,13 @@ filepath = DIRPATH+data_file
 stream = pickle.load(open(filepath, "rb"))
 model = pickle.load(open("model/"+model_file, "rb"))
 
+# downsample the data
+if downsampling!=1:
+    stream.decimate(factor=downsampling,strict_length=False)
+    print("Downsampling the data by "+str(downsampling))
+    print("New sampling rate: "+str(stream[0].stats.sampling_rate*1e-6)+" MHz")
+
+    
 # Loop over the entire stream
 times = list()
 segments = list()

@@ -66,12 +66,12 @@ def segmentize(x, window_size, stride=None):
     return np.array([y for y in extract_segment(x, window_size, stride)])
 
 
-def pool(x, reduce_type="avg"):
+def pool(x, arg_pool, reduce_type="avg"):
     """Pooling operation performed on the last axis.
 
     Arguments
     ---------
-    data: symjax.tensor or np.ndarray
+    x: symjax.tensor or np.ndarray
         The input data to pool.
 
     Keyword arguments
@@ -87,11 +87,17 @@ def pool(x, reduce_type="avg"):
     if reduce_type == "avg":
         return x.mean(axis=-1)
     if reduce_type == "max":
-        return x.max(axis=-1)
+        if arg_pool==True:
+            return x.argmax(axis=-1)
+        else:
+            return x.max(axis=-1)
     if reduce_type == "med":
         return np.median(x, axis=-1)
     if reduce_type == "min":
-        return np.nanmin(x, axis=-1)
+        if arg_pool:
+            return x.argmin(axis=-1)
+        else:
+            return np.nanmin(x, axis=-1)
     if reduce_type == "sum":
         return np.nansum(x, axis=-1)
     if reduce_type is None:

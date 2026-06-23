@@ -50,7 +50,7 @@ class ScatteringNetwork:
             for kw in layer_kwargs
         ]
 
-    def transform_sample(self, sample, reduce_type=None):
+    def transform_sample(self, sample, arg_pool, reduce_type=None):
         """Scattering network transformation.
 
         This function transforms a single sample with the scattering network.
@@ -104,11 +104,11 @@ class ScatteringNetwork:
         for bank in self.banks:
             scalogram = bank.transform(sample.copy())
             sample = scalogram
-            output.append(pool(scalogram, reduce_type))
+            output.append(pool(scalogram, arg_pool, reduce_type))
 
         return output
 
-    def transform(self, samples, reduce_type=None):
+    def transform(self, samples, arg_pool, reduce_type=None):
         """Transform a set of samples.
 
         This function is a wrapper to loop over a series of samples
@@ -160,7 +160,7 @@ class ScatteringNetwork:
 
         # Calculate coefficients
         for sample in samples:
-            scatterings = self.transform_sample(sample, reduce_type)
+            scatterings = self.transform_sample(sample, arg_pool, reduce_type)
             for layer_index, scattering in enumerate(scatterings):
                 features[layer_index].append(scattering)
 

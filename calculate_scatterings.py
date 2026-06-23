@@ -5,39 +5,11 @@ and data. The scattering coefficients are calculated for each time sample and
 each channel. Prior to the scattering calculation, the scattering network is
 initialized with the given parameters with the notebook 02_network_design.ipynb. 
 
-Parameters
-----------
-pooling : str
-    The pooling method to use.
-filepath_scattering_coefficients : str
-    The filepath to save the scattering coefficients.
-filepath_stream : str
-    The filepath to the database.
-filepath_model : str
-    The filepath to the model.
-
-Notes
------
-
-This script can be run with the following command:
-
-python calculate_scatterings.py --pooling avg --filepath_scattering_coefficients data/scattering_2.0.pickle
-
-
-(python scatterings.py \
-    --pooling avg \ 
-    --filepath_scattering_coefficients ../data/scattering_coefficients.pkl \ 
-    --filepath_stream ../data/database.pkl \ 
-    --filepath_model ../data/model.pkl)
-
-
-In order to run on a cluster, the script calculate_scatterings.sh can be used.
-Please have a look at the script for more information.
-
 Made by Leonard Seydoux in January 2023.
+
+Adapted by Théotime de la Selle in june 2024 for acoustic data analysis
 """
 
-import argparse
 import pickle
 
 from multiprocessing import Pool
@@ -47,35 +19,8 @@ from tqdm import tqdm
 
 from scripts_py import loader
 
-# Argument parser
-parser = argparse.ArgumentParser(
-    description="Calculate scattering coefficients."
-)
-# parser.add_argument(
-#     "--pooling",
-#     help="pooling method to use (avg, max, or med).",
-#     type=str,
-# )
-# parser.add_argument(
-#     "--filepath_scattering_coefficients",
-#     help="filepath to save the scattering coefficients.",
-#     type=str,
-# )
-# parser.add_argument(
-#     "--filepath_model",
-#     help="filepath to the network model.",
-#     type=str,
-# )
 
-# Parse arguments
-ARGUMENTS = parser.parse_args()
-
- # Pooling type conversion
-# if ARGUMENTS.pooling == "avg" : red_type=np.mean 
-# if ARGUMENTS.pooling == "med" : red_type=np.median
-# if ARGUMENTS.pooling == "max" : red_type=np.max
-
-def transform_waveform(index):
+def transform_waveform(index, arg_pool=False):
     """Transforms a waveform into scattering coefficients.
 
     This function transforms a waveform into scattering coefficients. The
@@ -99,7 +44,7 @@ def transform_waveform(index):
     """
     # Transform waveforms into scattering space
     scattering_coefficients = loader.model.transform_sample(
-        loader.segments[index], reduce_type=loader.pooling
+        loader.segments[index], reduce_type=loader.pooling, arg_pool=arg_pool
     )
 
     return scattering_coefficients
@@ -108,8 +53,7 @@ def transform_waveform(index):
 def main():
 
     # Print the number of cores used
-    n_tasks = 8
-    # show file name
+    n_tasks = 6
     print(f"Data file: {loader.data_file}") 
     print(f"Number of cores: {n_tasks}")
 

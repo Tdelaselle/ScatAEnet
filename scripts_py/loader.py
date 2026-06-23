@@ -1,13 +1,11 @@
 """Load data and model for the transform_waveform function."""
 
-import glob
 import pickle
 
 import numpy as np
 import obspy
-import tqdm
 import xarray as xr
-from scripts_py import Analysis_param
+from analysis_bank import Analysis_param
 
 # -------------------------------------------- filepaths and parameters
 data_file = Analysis_param.data_file
@@ -18,6 +16,7 @@ pooling = Analysis_param.pooling
 scattering_coef_path = Analysis_param.Scattering_coef_path
 fig_path = Analysis_param.fig_path
 downsampling = Analysis_param.downsampling
+arg_pool = Analysis_param.arg_pool
 # -----------------------------------------------------------
 
 # Load database and model. This are assigned to the global namespace to be used

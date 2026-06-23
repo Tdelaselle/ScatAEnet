@@ -53,37 +53,42 @@ def segmentize(x, window_size, stride=None):
     """
     return np.array([x for x in segment(x, window_size, stride)])
 
-def pool(x, reduce_function="max"):
-    """Pooling operation performed on the last axis.
+# def pool(x, reduce_type="avg",arg_pool = False):
+#     """Pooling operation performed on the last axis.
 
-    Arguments
-    ---------
-    data: symjax.tensor or np.ndarray
-        The input data to pool.
+#     Arguments
+#     ---------
+#     data: symjax.tensor or np.ndarray
+#         The input data to pool.
 
-    Keyword arguments
-    -----------------
-    reduce_type: str
-        The reducing operation (default: avg).
+#     Keyword arguments
+#     -----------------
+#     reduce_type: str
+#         The reducing operation (default: avg).
 
-    Returns
-    -------
-    data_pooled: symjax.tensor
-        The data pooled with same shape of input data minus last dimension.
-    """
-
-    if reduce_function == "avg":
-        return x.mean(axis=-1)
-    if reduce_function == "max":
-        return x.max(axis=-1)
-    if reduce_function == "med":
-        return np.median(x, axis=-1)
-    if reduce_function == "min":
-        return np.nanmin(x, axis=-1)
-    if reduce_function == "sum":
-        return np.nansum(x, axis=-1)
-    if reduce_function is None:
-        return x
+#     Returns
+#     -------
+#     data_pooled: symjax.tensor
+#         The data pooled with same shape of input data minus last dimension.
+#     """
+#     if reduce_type == "avg":
+#         return x.mean(axis=-1)
+#     if reduce_type == "max":
+#         if arg_pool:
+#             return (x.max(axis=-1),x.argmax(axis=-1))
+#         else:
+#             return x.max(axis=-1)
+#     if reduce_type == "med":
+#         return np.median(x, axis=-1)
+#     if reduce_type == "min":
+#         if arg_pool:
+#             return (x.nanmin(axis=-1),x.argmin(axis=-1))
+#         else:
+#             return np.nanmin(x, axis=-1)
+#     if reduce_type == "sum":
+#         return np.nansum(x, axis=-1)
+#     if reduce_type is None:
+#         return x
 
 
 def reshape_features(features, net):
