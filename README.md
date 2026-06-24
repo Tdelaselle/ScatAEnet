@@ -12,7 +12,7 @@ This repository provides the Python scripts and notebooks used to:
 
 > _Note: this repository only contains the pre-processing (continuous AE recordings) and
 > post-processing (scattering coefficients) code. The scattering network library itself,
-> `scatseisnet`, is bundled here in the [scatseisnet/](scatseisnet/) folder. See
+> `scatseisnet`, is bundled and adapted here in the [scatseisnet/](scatseisnet/) folder. See
 > <https://zenodo.org/records/15110686> for the reference Scatseisnet release._
 
 ---
@@ -23,11 +23,11 @@ This repository provides the Python scripts and notebooks used to:
 | --- | --- |
 | [scripts_py/](scripts_py/) | Helper scripts. `AE_ASCII_Obspy.py` converts raw AE datastreaming (TXT) into an ObsPy stream; `loader.py` loads the stream + network and segments the stream for the scattering computation. |
 | [analysis_bank/](analysis_bank/) | Configuration files. `Analysis_param.py` defines the file paths and parameters (data file, model file, pooling, downsampling, …) for a given analysis run. |
+| [Network_design.ipynb](Network_design.ipynb) | Builds, visualises and saves a scattering network instance. |
 | [scatseisnet/](scatseisnet/) | Bundled scattering network library (`ScatteringNetwork`, filter banks, wavelets and core operations) adapted for AE data. |
-| [parametric_data/](parametric_data/) | Parametric data, e.g. the synchronized parametric dataframes produced by the synchronization notebook (`.pkl`). |
 | [scattering_coefficients/](scattering_coefficients/) | Output scattering coefficients computed by `calculate_scatterings.py` (`.pkl`). |
 | [calculate_scatterings.py](calculate_scatterings.py) | Main script that transforms the segmented waveforms into scattering coefficients (in parallel). |
-| [Network_design.ipynb](Network_design.ipynb) | Builds, visualises and saves a scattering network instance. |
+| [parametric_data/](parametric_data/) | Parametric data, e.g. the synchronized parametric dataframes produced by the synchronization notebook (`.pkl`). |
 | [Parametric_synchronization.ipynb](Parametric_synchronization.ipynb) | Synchronizes parametric data with the continuous AE recording and assembles parametric dataframes. |
 | [AE_recording_exploration.ipynb](AE_recording_exploration.ipynb) | Detection and clustering of AE signals from the scattering coefficients (UMAP + DBSCAN), with graphics. |
 
@@ -161,7 +161,7 @@ Léonard Seydoux. Contributions are very welcome.
 
 This work was supported by the French ANR project _e-Warnings_ (ANR-19-CE42-001).
 
-> __Copyright ©️ 2024 Théotime de la Selle__
+> __Copyright ©️ 2025 Théotime de la Selle__
 >
 > This program is free software: you can redistribute it and/or modify it under the terms
 > of the GNU General Public License as published by the Free Software Foundation, either
