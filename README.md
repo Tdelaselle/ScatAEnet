@@ -1,4 +1,4 @@
-# ScatAEnet (still under development)
+# ScatAEnet
 
 Application of a **scattering network** for **acoustic emission (AE)** data analysis — an
 adapted version of [Scatseisnet](https://zenodo.org/records/15110686).
